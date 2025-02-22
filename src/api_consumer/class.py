@@ -35,3 +35,7 @@ class SteamApi(APIClient):
     def get_game_active_player(self, app_id:int):
         return self.get(f"ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid={app_id}")
     
+    def get_app_id(self):
+        return self.get("ISteamApps/GetAppList/v2/")
+    
+    
