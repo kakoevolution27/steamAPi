@@ -16,11 +16,10 @@ class APIClient:
         response.raise_for_status()
         return response.json()
     
-class SteamAPI(APIClient):
+class SteamStoreAPI(APIClient):
     #Cliente especializado para consumir a API steam
-    def __init__(self, api_key:str):
+    def __init__(self):
         super().__init__("https://store.steampowered.com/")
-        self.api_key = api_key
 
     def get_game_details(self, app_id:int):
         return self.get(f"api/appdetails?appids={app_id}")
@@ -28,4 +27,11 @@ class SteamAPI(APIClient):
     def get_game_reviews(self, app_id:int,language:str,num_per_pages:int):
         return self.get(f"appreviews/{app_id}?json=1&language={language}&num_per_page={num_per_pages}")
     
+
+class SteamApi(APIClient):
+    def __init__(self):
+        super().__init__("https://api.steampowered.com/")
+
+    def get_game_active_player(self, app_id:int):
+        return self.get(f"ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid={app_id}")
     
